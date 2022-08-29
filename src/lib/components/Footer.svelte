@@ -29,6 +29,8 @@
   footer {
     padding-block: 6rem;
     background-color: var(--cls-gray-50);
+    box-shadow: 0 0 0 100vw var(--cls-gray-50);
+    clip-path: inset(0 -100vw);
   }
 
   fieldset {
