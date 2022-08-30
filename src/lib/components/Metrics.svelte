@@ -38,17 +38,25 @@
 
 <style>
   .container {
-    display: flex;
-    justify-content: center;
+    /* display: flex; */
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    place-content: center;
     gap: 2rem;
-    padding-inline: 7rem;
+    padding-inline: 8rem;
     padding-bottom: 6rem;
     flex-wrap: wrap;
   }
 
+  @media screen and (max-width: 920px) {
+    .container {
+      /* background-color: red; */
+      padding: 0 4rem;
+    }
+  }
+
   .container-item {
     display: flex;
-    flex: 1;
     flex-direction: column;
     gap: 12px;
   }
@@ -66,5 +74,13 @@
     line-height: var(--lh-28);
     font-weight: var(--fw-medium);
     color: var(--cls-gray-900);
+  }
+
+  @media screen and (max-width: 850px) {
+    .container-item {
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
   }
 </style>

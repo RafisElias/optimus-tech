@@ -1,5 +1,14 @@
 <script lang="ts">
+  import menuIcon from "assets/images/menu-icon.svg";
   const navLinks = ["Home", "Produtos", "Recursos", "Sobre nós"];
+
+  const openModal = () => {
+    document.querySelector("dialog")?.showModal();
+  };
+
+  const closeModal = () => {
+    document.querySelector("dialog")?.close();
+  };
 </script>
 
 <header>
@@ -10,6 +19,7 @@
       viewBox="0 0 148 28"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      class="logo"
     >
       <path
         fill-rule="evenodd"
@@ -22,21 +32,54 @@
         fill="#3A404E"
       />
     </svg>
+    <div class="desktop-menu">
+      <nav class="menu-container">
+        <ul class="menu">
+          {#each navLinks as link}
+            <li class="menu-item">
+              <a href="/">{link}</a>
+            </li>
+          {/each}
+        </ul>
+      </nav>
 
-    <nav>
-      <ul class="menu">
-        {#each navLinks as link}
-          <li class="menu-item">
-            <a href="/">{link}</a>
-          </li>
-        {/each}
-      </ul>
-    </nav>
-
-    <div class="login-container">
-      <button class="btn" data-type="outline">Entrar</button>
-      <button class="btn">Cadastrar</button>
+      <div class="login-container">
+        <button class="btn" data-type="outline" type="button">Entrar</button>
+        <button class="btn" type="button">Cadastrar</button>
+      </div>
     </div>
+    <!-- Mobile menu -->
+    <dialog class="mobile-menu">
+      <nav class="menu-container">
+        <ul class="menu">
+          {#each navLinks as link, i}
+            <li class="menu-item">
+              <span tabindex={i + 1} on:click={closeModal}>{link}</span>
+            </li>
+          {/each}
+        </ul>
+      </nav>
+
+      <div class="login-container">
+        <button
+          class="btn"
+          data-type="outline"
+          type="button"
+          on:click={closeModal}>Entrar</button
+        >
+        <button class="btn" type="button" on:click={closeModal}
+          >Cadastrar</button
+        >
+      </div>
+    </dialog>
+    <button
+      type="button"
+      class="side-menu"
+      aria-label="mobile menu botão"
+      on:click={openModal}
+    >
+      <img src={menuIcon} alt="Menu Icon" />
+    </button>
   </section>
   <section class="banner">
     <span class="chip" data-type="text">Sobre nós</span>
@@ -59,13 +102,40 @@
     padding: 1.125rem 5rem;
     display: flex;
     align-items: center;
-    gap: 7.438rem;
+    justify-content: space-between;
+    position: relative;
+  }
+
+  .desktop-menu {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+  }
+
+  .logo {
+    width: 9.25rem;
+    height: 1.75rem;
+    aspect-ratio: 148 / 28;
+  }
+
+  .side-menu {
+    background-color: transparent;
+    border: none;
+    display: none;
+    /* outline: none; */
+    width: 24px;
+    aspect-ratio: 1;
+    cursor: pointer;
+  }
+
+  .side-menu:focus,
+  .side-menu:hover {
+    outline: 2px solid var(--cls-gray-500);
   }
 
   .menu {
     display: flex;
     gap: 2rem;
-    font-weight: var(--fw-medium);
   }
 
   .menu-item {
@@ -73,6 +143,14 @@
     position: relative;
   }
 
+  .menu-item a:hover,
+  .menu-item a:focus,
+  .menu-item span:hover,
+  .menu-item span:focus {
+    color: var(--cls-gray-900);
+  }
+
+  .menu-item span::before,
   .menu-item a::before {
     content: "";
     position: absolute;
@@ -84,11 +162,14 @@
     transition: width 200ms ease-in;
   }
 
+  .menu-item span:hover::before,
+  .menu-item span:focus::before,
   .menu-item a:hover::before,
   .menu-item a:focus::before {
     width: 100%;
   }
 
+  .menu-item span,
   .menu-item a {
     text-decoration: none;
     color: inherit;
@@ -99,7 +180,13 @@
     display: flex;
     align-items: center;
     gap: 0.75rem;
-    margin-left: auto;
+    /* margin-left: auto; */
+  }
+
+  .mobile-menu {
+    color: var(--cls-gray-500);
+    border: none;
+    outline: none;
   }
 
   .btn[data-type="outline"] {
@@ -127,6 +214,7 @@
     line-height: var(--lh-60);
     letter-spacing: -0.02em;
     color: var(--cls-gray-900);
+    text-align: center;
   }
 
   .about-us {
@@ -135,5 +223,57 @@
     line-height: var(--lh-30);
     max-width: 791px;
     margin-top: 0.75rem;
+  }
+
+  .show-menu {
+    display: block !important;
+  }
+
+  @media screen and (max-width: 920px) {
+    .header {
+      padding-inline: 2.5rem;
+    }
+    .side-menu {
+      display: block;
+    }
+
+    .desktop-menu {
+      display: none;
+    }
+    .mobile-menu {
+      /* display: none; */
+      /* position: absolute; */
+      inset: 1.5rem 1.5rem auto 0;
+      margin-top: auto;
+      margin-left: auto;
+      width: 175px;
+      padding: 1rem;
+      background-color: #ffffff;
+      box-shadow: 0 0 5px 1px hsl(218, 15%, 85%);
+      border-radius: 4px;
+      z-index: 2;
+    }
+
+    .menu-container,
+    .menu,
+    .login-container {
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .menu {
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .title {
+      font-size: var(--fs-600);
+      line-height: var(--lh-44);
+      padding-inline: 2rem;
+    }
+
+    .about-us {
+      padding-inline: 2rem;
+    }
   }
 </style>

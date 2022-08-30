@@ -58,16 +58,16 @@
   }
 
   .field {
+    display: flex;
     margin-inline: auto;
     margin-top: 2.5rem;
     margin-bottom: 2rem;
-    width: fit-content;
-    display: flex;
     gap: 0.5rem;
+    max-width: 30rem;
   }
 
   .field input {
-    width: 22.5rem;
+    width: 100%;
     height: 3rem;
     padding: 0.75rem 0.875rem 0.75rem 1rem;
     background-color: transparent;
@@ -86,5 +86,22 @@
     text-align: center;
     color: var(--cls-gray-400);
     font-size: var(--fs-400);
+  }
+
+  @media screen and (max-width: 820px) {
+    footer {
+      padding: 2rem;
+    }
+    legend p {
+      font-size: var(--fs-400);
+      line-height: var(--lh-24);
+    }
+    legend h2 {
+      font-size: 24px;
+    }
+
+    .field {
+      margin-top: 0.75rem;
+    }
   }
 </style>

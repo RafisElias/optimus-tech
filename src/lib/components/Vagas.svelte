@@ -60,7 +60,7 @@
           {#each item.options as option}
             <li>
               <span class="recruitment-name">{option.name}</span>
-              <div>
+              <div class="recruitment-info">
                 <span class="recruitment-type">{option.type}</span>
                 <span class="recruitment-wage"
                   >Faixa salarial: {option.wage.toLocaleString("pt-br", {
@@ -81,6 +81,7 @@
   main {
     padding: 6rem 5rem;
   }
+
   .talents-container {
     padding-inline: 3rem;
   }
@@ -166,5 +167,24 @@
 
   .recruitment-type {
     margin-right: 1.5rem;
+  }
+
+  @media screen and (max-width: 537px) {
+    .recruitment-info {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      /* padding-inline: 2rem; */
+    }
+  }
+
+  @media screen and (max-width: 820px) {
+    main {
+      padding: 2rem 1rem;
+    }
+
+    .jobs-container {
+      padding-inline: 1.5rem;
+    }
   }
 </style>

@@ -76,4 +76,17 @@
     text-align: center;
     line-height: var(--lh-20);
   }
+
+  @media screen and (max-width: 820px) {
+    .subheading {
+      font-size: var(--fs-400);
+    }
+    .testimonial-container {
+      padding: 1.5rem;
+    }
+    blockquote {
+      font-size: var(--fs-550);
+      line-height: var(--lh-28);
+    }
+  }
 </style>
